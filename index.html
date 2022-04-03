@@ -20,7 +20,7 @@
         </form>
       </div>
       <div id="list">
-        <p>編集する項目をClick</p>
+        <p v-if="todos.length">編集する項目をClick</p>
         <ul>
           <li
             v-for="todo in todos"
