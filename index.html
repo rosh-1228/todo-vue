@@ -9,39 +9,32 @@
   <body>
     <h1>ToDo</h1>
     <div id="app">
-      <div id="add">
-        <form @submit.prevent="addTodo">
-          <input
-            v-model="newTodo"
-            id="new-todo"
-            placeholder="Todoを入力"
-          />
-          <button>追加</button>
-        </form>
-      </div>
-      <div id="list">
-        <p v-if="todos.length">編集する項目をClick</p>
-        <ul>
-          <li
-            v-for="todo in todos"
-            :key="todo.id"
-          >
-            <div v-if="todo.editable">
-              <input
-                v-focus
-                v-model="todo.content"
-                @keyup.enter="updateTodo(todo)"
-                @blur="updateTodo(todo)"
-              >
-              <button @click="updateTodo(todo)">完了</button>
-            </div>
-            <div v-else>
-              <span @click="edit(todo)">{{ todo.content }}</span>
-              <button @click="deleteTodo(todo)">削除</button>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <input
+        v-model="newTodo"
+        placeholder="Todoを入力"
+      />
+      <button @click="addTodo">追加</button>
+      <p v-if="todos.length > 0">編集する項目をClick</p>
+      <ul>
+        <li
+          v-for="todo in todos"
+          :key="todo.id"
+        >
+          <div v-if="todo.editable">
+            <input
+              v-focus
+              v-model="todo.content"
+              @keyup.enter="updateTodo(todo)"
+              @blur="updateTodo(todo)"
+            >
+            <button @click="updateTodo(todo)">完了</button>
+          </div>
+          <div v-else>
+            <span @click="edit(todo)">{{ todo.content }}</span>
+            <button @click="deleteTodo(todo)">削除</button>
+          </div>
+        </li>
+      </ul>
     </div>
     <script src="index.js"></script>
   </body>
