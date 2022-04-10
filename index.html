@@ -20,7 +20,7 @@
           v-for="todo in todos"
           :key="todo.id"
         >
-          <div v-if="todo.editable">
+          <div v-if="editableId === todo.id">
             <input
               v-focus
               v-model="todo.content"
@@ -30,7 +30,7 @@
             <button @click="updateTodo(todo)">完了</button>
           </div>
           <div v-else>
-            <span @click="edit(todo)">{{ todo.content }}</span>
+            <span @click="edit(todo.id)">{{ todo.content }}</span>
             <button @click="deleteTodo(todo)">削除</button>
           </div>
         </li>

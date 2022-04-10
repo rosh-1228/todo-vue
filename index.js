@@ -2,7 +2,8 @@ const app = Vue.createApp({
   data () {
     return {
       newTodo: '',
-      todos: JSON.parse(localStorage.getItem('todos')) || []
+      todos: JSON.parse(localStorage.getItem('todos')) || [],
+      editableId: 0
     }
   },
   directives: {
@@ -15,18 +16,19 @@ const app = Vue.createApp({
   methods: {
     addTodo () {
       if (!this.newTodo.trim()) { return }
+      const todoId = this.todos.length ? this.todos.slice(-1)[0].id + 1 : 1
       this.todos.push({
-        content: this.newTodo,
-        editable: false
+        id: todoId,
+        content: this.newTodo
       })
       localStorage.setItem('todos', JSON.stringify(this.todos))
       this.newTodo = ''
     },
-    edit (todo) {
-      todo.editable = true
+    edit (todoId) {
+      this.editableId = todoId
     },
     updateTodo (updateTodo) {
-      updateTodo.editable = false
+      this.editableId = 0
       if (updateTodo.content === '') { this.deleteTodo(updateTodo) }
       localStorage.setItem('todos', JSON.stringify(this.todos))
     },
